@@ -1,0 +1,17 @@
+(defwidget CurrentPlayer []
+	(box
+		:class "CurrentPlayerContent"
+		:space-evenly false
+		:orientation "h"
+
+		(label
+			:class "Icon PlayerIcon"
+			:text "${MusicPlayerInfo.PlayerIcon}"
+		)
+
+		(label
+			:class "PlayerTitle"
+			:text "${MusicPlayerInfo.PlayerName}"
+		)
+	)
+)

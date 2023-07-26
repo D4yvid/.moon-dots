@@ -1,0 +1,14 @@
+(defvar TerminalIcon " ")
+(defvar BrowserIcon	" ")
+(defvar GameIcon "󰺵 ")
+(defvar CodeIcon " ")
+
+;; Network-related
+(defvar WifiSignal4			"󰤨 ")
+(defvar WifiSignal3			"󰤥 ")
+(defvar WifiSignal2			"󰤢 ")
+(defvar WifiSignal1			"󰤟 ")
+(defvar WifiSignal0			"󰤯 ")
+(defvar WifiOff					"󰤭 ")
+(defvar WifiDisconnected "󰤩 ")
+

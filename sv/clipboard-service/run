@@ -1,0 +1,5 @@
+#!/bin/sh
+
+log_info "Starting clipboard manager (wl-clip-persist)..."
+
+wl-clip-persist --clipboard both

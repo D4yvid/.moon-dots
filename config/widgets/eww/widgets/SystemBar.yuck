@@ -1,0 +1,52 @@
+(include './widgets/SystemBar/Clock.yuck')
+(include './widgets/SystemBar/MusicTray.yuck')
+(include './widgets/SystemBar/SystemTray.yuck')
+(include './widgets/SystemBar/ApplicationMenu.yuck')
+
+(defwidget SystemBarContent []
+	(box
+		:vexpand false
+		:hexpand true
+		:class "Content"
+		:halign "center"
+		:orientation "v"
+
+		(box
+			:space-evenly false
+			:class "Top"
+			:orientation "v"
+			:valign "start"
+
+			(ApplicationLauncherButton)
+			(ApplicationWorkspaces)
+		)
+
+		(box
+			:space-evenly false
+			:class "Bottom"
+			:orientation "v"
+			:valign "end"
+
+			(MusicTray)
+			(SystemTray)
+			(Clock)
+		)
+	)
+)
+
+(defwindow SystemBar
+	:monitor 0
+
+	:stacking "fg"
+	:focusable false
+	:exclusive true
+	:geometry (geometry
+		:x "0.3%"
+		:y "0%"
+		:width "32px"
+		:height "99.5%"
+		:anchor "left center"
+	)
+
+	(SystemBarContent)
+)

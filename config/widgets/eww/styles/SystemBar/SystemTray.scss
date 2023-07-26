@@ -1,0 +1,35 @@
+.SystemTrayIcons {
+	background: $surface0;
+
+	padding: 2px;
+	padding-bottom: 0;
+
+	border-radius: 20px;
+	margin-bottom: 5px;
+}
+
+.TrayIcon {
+	background: $surface1;
+	color: $subtext0;
+
+	font-size: 20px;
+
+	margin-bottom: 2px;
+	border-radius: 20px;
+
+	.Icon {
+		margin: 4px;
+	}
+}
+
+.BatteryTrayIcon {
+	color: $green;
+}
+
+.SoundTrayIcon {
+	color: $mauve;
+}
+
+.WifiTrayIcon {
+	color: $sky;
+}

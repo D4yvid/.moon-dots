@@ -1,0 +1,18 @@
+(defwidget MusicTray []
+	(eventbox
+		:onclick "eww open MusicPlayer"
+
+		(box
+			:class "MusicIconTray"
+			:valign "center"
+			:halign "center"
+			:space-evenly false
+			:orientation "v"
+
+			(label
+				:class "Icon"
+				:text "music_note"
+			)
+		)
+	)
+)

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+PATH=/usr/libexec:$PATH
+
+destroy_old_portals() {
+  pkill -f xdg-desktop-portal
+}
+
+wait_portal_close() {
+  while pgrep -f xdg-desktop-portal; do sleep 1; done
+}
+
+start_desktop_portal() {
+  xdg-desktop-portal-hyprland 2> /dev/null >&2 &
+
+  # I don't know why, but we need to wait at least 0.5s before starting the desktop-portal
+  sleep 0.5
+
+  xdg-desktop-portal -rv 2> /dev/null >&2
+}
+
+log_info "Destroying all old desktop portals"
+destroy_old_portals
+
+log_info "Waiting all portals to be closed"
+wait_portal_close
+
+log_info "Starting new desktop portal"
+start_desktop_portal

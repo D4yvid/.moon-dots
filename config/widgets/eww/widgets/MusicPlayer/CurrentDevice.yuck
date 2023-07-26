@@ -1,0 +1,19 @@
+(defwidget CurrentDevice []
+	(eventbox
+		(box
+			:class "CurrentDeviceContent"
+			:valign "center"
+			:space-evenly false
+
+			(label
+				:class "Icon"
+				:text "${MusicPlayerInfo.CurrentPortIcon}"
+			)
+
+			(label
+				:class "Text"
+				:text "${MusicPlayerInfo.CurrentPort}"
+			)
+		)
+	)
+)

@@ -1,0 +1,16 @@
+@import './SystemBar/SystemTray.scss';
+@import './SystemBar/ApplicationMenu.scss';
+@import './SystemBar/Clock.scss';
+@import './SystemBar/MusicTray.scss';
+
+.SystemBar {
+	border-radius: 20px;
+	background: none;
+	color: $text;
+
+	margin: 0;
+
+	.Content {
+		padding: 5px 0;
+	}
+}

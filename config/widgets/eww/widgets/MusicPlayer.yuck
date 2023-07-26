@@ -1,0 +1,90 @@
+(defpoll MusicPlayerInfo
+	:interval "5s"
+	:initial '{"Status": "Stopped", "Volume": 0.0, "Album": "", "Artist": "", "Title": "", "CurrentPort": "", "CurrentPortIcon": "", "ArtURL": "", "PlayerName": "", "PlayerIcon": ""}'
+	`moonctl sound media-session-info`
+)
+
+(include './widgets/MusicPlayer/CurrentDevice.yuck')
+(include './widgets/MusicPlayer/CurrentPlayer.yuck')
+(include './widgets/MusicPlayer/MediaControls.yuck')
+(include './widgets/MusicPlayer/CurrentlyPlaying.yuck')
+
+(defwidget CloseButton []
+	(eventbox
+		:onclick "eww close MusicPlayer"
+
+		(box
+			:class "ClosePlayerButton"
+			:halign "end"
+			:valign "center"
+
+			(label
+				:class "Icon"
+				:text "close"
+			)
+		)
+	)
+)
+
+(defwidget MusicPlayerContent []
+	(box
+		:class "MusicPlayerContent"
+		:orientation "v"
+		:space-evenly false
+
+		(box
+			:valign "start"
+			:halign "fill"
+			:hexpand true
+
+			(box
+				:halign "fill"
+
+				(box
+					:halign "start"
+					:space-evenly false
+
+					(CurrentPlayer)
+				)
+
+				(box
+					:halign "end"
+					:space-evenly false
+
+					(CurrentDevice)
+					(CloseButton)
+				)
+			)
+		)
+
+		(box
+			:class "ContentSection"
+			:valign "fill"
+			:vexpand true
+			:orientation "v"
+			:space-evenly false
+
+			(CurrentlyPlaying)
+			(MediaControls)
+		)
+	)
+)
+
+(defwindow MusicPlayer
+	:monitor 0
+
+	:stacking "fg"
+	:focusable false
+	:exclusive false
+
+	:namespace "music-player-surface"
+
+	:geometry (geometry
+		:x "0.8%"
+		:y "8.2%"
+		:width "30%"
+		:anchor "bottom left"
+	)
+
+	(MusicPlayerContent)
+)

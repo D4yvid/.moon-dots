@@ -1,0 +1,70 @@
+(defwidget ApplicationLauncherButton []
+	(box
+		:class "ApplicationLauncher Margin5Bottom"
+		:halign "center"
+		:valign "center"
+		:space-evenly false
+
+		(label
+			:class "Icon ApplicationLauncherIcon"
+			:text "nightlight_round"
+		)
+	)
+)
+
+(defwidget ApplicationWorkspaces []
+	(box
+		:class "ApplicationWorkspaces Margin5Bottom"
+		:halign "center"
+		:valign "center"
+		:orientation "v"
+		:space-evenly false
+
+		(ApplicationWorkspace
+			:AppIcon "${TerminalIcon}"
+			:AppName "Terminal (Alacritty)"
+			:CustomClass "AppTerminal"
+			:WorkspaceNumber 1
+		)
+
+		(ApplicationWorkspace
+			:AppIcon "${BrowserIcon}"
+			:AppName "Browser (Firefox)"
+			:CustomClass "AppDiscord"
+			:WorkspaceNumber 2
+		)
+
+		(ApplicationWorkspace
+			:AppIcon "${CodeIcon}"
+			:AppName "Development"
+			:CustomClass "AppDev"
+			:WorkspaceNumber 3
+		)
+	
+		(ApplicationWorkspace
+			:AppIcon "${GameIcon}"
+			:AppName "Game (Minecraft)"
+			:CustomClass "AppGame"
+			:WorkspaceNumber 4
+		)
+	)
+)
+
+(defwidget ApplicationWorkspace [AppIcon WorkspaceNumber ?AppName ?CustomClass]
+	(eventbox
+		:onclick "hyprctl dispatch workspace ${WorkspaceNumber}"
+
+		(box
+			:class "ApplicationWorkspace ${CustomClass}"
+			:halign "center"
+			:valign "center"
+			:space-evenly false
+			:tooltip "${AppName}"
+
+			(label
+				:class "Icon"
+				:text AppIcon
+			)
+		)
+	)
+)

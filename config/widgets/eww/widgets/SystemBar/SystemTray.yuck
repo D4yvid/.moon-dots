@@ -1,0 +1,98 @@
+(defpoll BatteryInfo
+	:interval "30s"
+	:initial '{"Capacity": "0", "Icon": "battery_0_bar"}'
+	`battery-info`
+)
+
+(defpoll WifiInfo
+	:interval "5s"
+	:initial '{"Connected": false, "NetworkName": "", "Signal": 0, "Icon": "signal_wifi_off"}'
+	`wifi-info`
+)
+
+(deflisten VolumeInfo
+	:initial '{ "Volume": 0, "Icon": "" }'
+	`volume-info`
+)
+
+(defwidget SystemTray []
+	(box
+		:class "SystemTrayIcons"
+		:orientation "v"
+		:halign "center"
+		:valign "center"
+		:space-evenly false
+
+		(WifiIcon)
+		(SoundIcon)
+		(BatteryIcon)
+	)
+)
+
+(defwidget WifiIcon []
+	(eventbox
+		(box
+			:class "WifiTrayIcon TrayIcon"
+			:valign "center"
+			:halign "center"
+			:space-evenly false
+			:orientation "v"
+			:tooltip {WifiInfo.Connected ? "Network name: ${WifiInfo.NetworkName}" : "Not connected"}
+
+			(label
+				:class "Icon"
+				:text "${WifiInfo.Icon}"
+			)
+		)
+	)
+)
+
+(defwidget SoundIcon []
+	(eventbox
+		:onscroll "volumectl 5 {}"
+
+		(box
+			:class "SoundTrayIcon TrayIcon"
+			:valign "center"
+			:halign "center"
+			:space-evenly false
+			:orientation "v"
+			:tooltip "Volume: ${VolumeInfo.Volume}%"
+
+			(circular-progress
+				:value {VolumeInfo.Volume}
+				:thickness 2
+				:class "SoundPercentage Progress"
+
+				(label
+					:class "Icon"
+					:text "${VolumeInfo.Icon}"
+				)
+			)
+		)
+	)
+)
+
+(defwidget BatteryIcon []
+	(eventbox
+		(box
+			:class "BatteryTrayIcon TrayIcon"
+			:valign "center"
+			:halign "center"
+			:space-evenly false
+			:orientation "v"
+			:tooltip "Battery Percentage: ${BatteryInfo.Capacity}"
+
+			(circular-progress
+				:value {BatteryInfo.Capacity}
+				:thickness 2
+				:class "BatteryPercentage Progress"
+
+				(label
+					:class "Icon"
+					:text "${BatteryInfo.Icon}"
+				)
+			)
+		)
+	)
+)

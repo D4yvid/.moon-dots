@@ -1,0 +1,4 @@
+[Wed Jul 26 14:08:01 -03 2023] [INFO ]: Running 'dex --autostart'
+dbus-daemon[988]: Activating service name='org.a11y.atspi.Registry' requested by ':1.0' (uid=1000 pid=968 comm="/usr/libexec/xdg-desktop-portal-gtk")
+dbus-daemon[988]: Successfully activated service 'org.a11y.atspi.Registry'
+SpiRegistry daemon is running with well-known name - org.a11y.atspi.Registry

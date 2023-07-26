@@ -1,0 +1,4 @@
+#!/bin/bash
+
+log_info "Running 'dex --autostart'"
+dex --autostart

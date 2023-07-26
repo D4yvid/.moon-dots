@@ -1,0 +1,46 @@
+(defwidget MediaControls []
+	(box
+		:class "MediaControlsContent"
+		:space-evenly false
+
+		(scale
+			:class "MediaProgress"
+			:valign "center"
+			:halign "fill"
+
+			:width 340
+			:value 40
+		)
+
+		(box
+			:class "MediaButtons"
+			:space-evenly false
+			:valign "center"
+			:halign "end"
+
+			(eventbox
+				
+				(label
+					:class "Icon PreviousMusic MediaControl"
+					:text "skip_previous"
+				)
+			)
+
+			(eventbox
+				
+				(label
+					:class "Icon PreviousMusic MediaControl"
+					:text "pause"
+				)
+			)
+
+			(eventbox
+				
+				(label
+					:class "Icon NextMusic MediaControl"
+					:text "skip_next"
+				)
+			)
+		)
+	)
+)

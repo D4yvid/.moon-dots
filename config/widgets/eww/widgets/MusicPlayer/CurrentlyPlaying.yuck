@@ -1,0 +1,57 @@
+(defvar NoMusicAlbum
+	'(label
+		:class "Icon AlbumIcon"
+		:text "music_note"
+	)'
+)
+
+(defwidget CurrentlyPlaying []
+	(box
+		:class "CurrentlyPlayingContent"
+		:orientation "v"
+		:valign "start"
+		:halign "start"
+
+		(box
+			:space-evenly false
+			:orientation "h"
+
+			(box
+				:class "MusicPicture"
+
+				(literal
+					:content {
+						MusicPlayerInfo.ArtURL == "" ? NoMusicAlbum : "
+						(box
+							:class \"AlbumImage\"
+							:style \"background-image: url('${MusicPlayerInfo.ArtURL}');\"
+							:width 64
+							:height 64
+						)"
+					}
+				)
+			)
+
+			(box
+				:class "MusicInfo"
+				:space-evenly false
+				:orientation "v"
+				:valign "center"
+
+				(label
+					:halign "start"
+
+					:class "MusicTitle"
+					:text "${MusicPlayerInfo.Title}"
+				)
+
+				(label
+					:halign "start"
+
+					:class "MusicAuthor"
+					:text "${MusicPlayerInfo.Artist}"
+				)
+			)
+		)
+	)
+)

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export DOTDIR=$([ -d $HOME/.dots ] && echo "$HOME/.dots" || pwd)
+export SVDIR=$([ -d $DOTDIR/sv ] && echo "$DOTDIR/sv")
+
+source $DOTDIR/enviroment
+
+PATH=$PATH:$DOTDIR/bin
+
+. $DOTDIR/etc/functions.sh
+
+dbus-run-session Hyprland &
+
+moonctl service init
+wait
+

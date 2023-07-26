@@ -1,0 +1,23 @@
+(defpoll CurrentTime
+	:interval "30s"
+	:initial "{\"Minutes\":\"00\",\"Hours\":\"00\"}"
+	"printf '{\"Minutes\":\"%s\",\"Hours\":\"%s\"}' `date +%M` `date +%H`"
+)
+
+(defwidget Clock []
+	(box
+		:class "SystemClock"
+		:orientation "v"
+		:space-evenly false
+
+		(label
+			:class "Hours"
+			:text "${CurrentTime.Hours}"
+		)
+
+		(label
+			:class "Minutes"
+			:text "${CurrentTime.Minutes}"
+		)
+	)
+)

@@ -1,0 +1,17 @@
+.SystemClock {
+	background: $surface0;
+	border-radius: 20px;
+	padding: 5px 1px;
+
+	font-family: 'IosevkaTerm Nerd Font';
+	font-weight: 900;
+	font-size: 18px;
+
+	.Hours {
+		color: $subtext0;
+	}
+
+	.Minutes {
+		color: $overlay1;
+	}
+}
