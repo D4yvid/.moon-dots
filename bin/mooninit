@@ -14,3 +14,4 @@ dbus-run-session Hyprland &
 moonctl service init
 wait
 
+moonctl service killall

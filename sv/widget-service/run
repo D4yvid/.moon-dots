@@ -1,3 +1,6 @@
 #!/bin/bash
 
+eww daemon --no-daemonize &
 eww open SystemBar
+
+wait

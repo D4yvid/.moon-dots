@@ -236,6 +236,8 @@ service_main() {
 		echo -e "\tlog\t\tRead all logs from service"
 		echo -e "\trun\t\tStart a service inside svdir"
 		echo -e "\tstop\t\tStop a service inside svdir"
+		echo -e "\tkillall\t\tKill all services running"
+		echo -e "\tlist-running\tList all services running"
 		echo -e ""
 
 		exit
@@ -244,15 +246,15 @@ service_main() {
 	service_running() {
 		SERVICE_DIR=$SVDIR/$1
 
-		[ ! -f "$SERVICE_DIR/stat/pid" ] && return 0
+		[ ! -f "$SERVICE_DIR/stat/pid" ] && return 1
 
 		PID=$(< "$SERVICE_DIR/stat/pid")
 
-		if (ps aux | grep -E "$PID" | grep "runsv.sh"); then
-			return 1
+		if (ps aux | grep -E "$PID" | grep "runsv.sh") > /dev/null 2>&1; then
+			return 0
 		fi
 
-		return 0
+		return 1
 	}
 
 	service_get_pid() {
@@ -286,12 +288,18 @@ service_main() {
 	}
 
 	service_runsv() {
-		service_running $1 || {
+		service_running $1 && {
 			err "The service '$1' is already running\n"
 			return
 		}
 
 		$DOTDIR/etc/runsv.sh $DOTDIR $SVDIR $1 $2 2> /dev/null >&2 & disown
+	}
+
+	service_get_running_services() {
+		for service in $(ls -1 $SVDIR); do
+			service_running $service && echo $service
+		done
 	}
 
 	service_stat() {
@@ -431,14 +439,30 @@ service_main() {
 
 		SVNAME="${argv[0]}"
 
-		service_running $SVNAME && {
+		service_running $SVNAME || {
 			err "The service '$SVNAME' is already stopped.\n"
 			exit 1
 		}
 
 		PID=$(service_get_pid $SVNAME)
 
-		kill -USR1 $PID && ok "service stopped.\n" || err "could not stop service: 'kill' exited with code %d" $?
+		kill -USR1 $PID && ok "service '$SVNAME' stopped.\n" || err "could not stop service '$SVNAME': 'kill' exited with code %d" $?
+	}
+
+	service_list_running() {
+		local argv=("$@")
+
+		for service in $(service_get_running_services); do
+			echo "Service '$service': $(service_running $service && echo "running (pid: $(service_get_pid $service))" || echo "stopped")"
+		done
+	}
+
+	service_killall() {
+		local argv=("$@")
+
+		for service in $(service_get_running_services); do
+			service_stop $service
+		done
 	}
 
 	service_init() {
@@ -478,6 +502,14 @@ service_main() {
 
 		stop)
 			service_stop ${argv[@]:1}
+			;;
+
+		killall)
+			service_killall ${argv[@]:1}
+			;;
+
+		list-running)
+			service_list_running ${argv[@]:1}
 			;;
 
 		help)
