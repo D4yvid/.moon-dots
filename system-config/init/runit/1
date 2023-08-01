@@ -1,0 +1,15 @@
+#!/bin/sh
+# vim: set ts=4 sw=4 et:
+
+PATH=/usr/bin:/usr/sbin
+. /etc/runit/functions
+
+for f in /etc/runit/core-services/*.sh; do
+	[ -r $f ] && . $f
+done
+
+mkdir -p /run/runit
+install -m000 /dev/null /run/runit/stopit
+install -m000 /dev/null /run/runit/reboot
+
+stage 2

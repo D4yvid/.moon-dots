@@ -1,0 +1,13 @@
+#!/bin/sh
+# vim: set ts=4 sw=4 et:
+
+PATH=/usr/bin:/usr/sbin
+. /etc/runit/functions
+
+[ -r /etc/rc.conf ] && . /etc/rc.conf
+
+for f in /etc/runit/shutdown.d/*.sh; do
+	[ -r $f ] && . $f
+done
+
+msg "Shutdown was successfull."

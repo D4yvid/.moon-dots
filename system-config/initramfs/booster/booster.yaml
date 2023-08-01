@@ -1,0 +1,9 @@
+busybox: true
+modules: -nouveau
+compression: none
+mount_timeout: 0s
+strip: true
+vconsole: true
+enable_lvm: false
+enable_mdraid: false
+enable_zfs: false

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+msg() {
+    printf "\033[1m INFO > $@\033[m\n"
+}
+
+msg_ok() {
+    printf "\033[1m\033[32m ok\033[m\n"
+}
+
+msg_error() {
+    printf "\033[1m\033[31mERROR > $@\033[m\n"
+}
+
+msg_warn() {
+    printf "\033[1m\033[33m WARN > $@\033[m\n"
+}
+
+stage() {
+    printf "\033[mSTAGE > Reached stage $1\n"
+}
+
+emergency_shell() {
+    echo
+    echo "Cannot continue due to errors above, starting emergency shell."
+    echo "When ready type exit to continue booting."
+    echo
+    /bin/sh -l
+}
+
+detect_virt() {
+    return
+}
+
+deactivate_vgs() {
+    return
+}
+
+deactivate_crypt() {
+    return
+}
