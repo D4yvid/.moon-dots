@@ -1,7 +1,7 @@
 (defpoll BatteryInfo
 	:interval "30s"
 	:initial '{"Capacity": "0", "Icon": "battery_0_bar"}'
-	`battery-info`
+	`moonctl battery info`
 )
 
 (defpoll WifiInfo

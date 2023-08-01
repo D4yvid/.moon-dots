@@ -28,7 +28,7 @@ kill_descendant_processes() {
 	fi
 
 	if [[ "$and_self" == true ]]; then
-		kill -KILL "$pid"
+		kill -TERM "$pid"
 	fi
 }
 

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SOUND_STATUS_PIPE="$HOME/.sound-status"
+MEDIA_STATUS_PIPE="$HOME/.media-status"
+
+[ -f "$SOUND_STATUS_PIPE" ] && rm -rf "$SOUND_STATUS_PIPE" 2> /dev/null
+[ -f "$MEDIA_STATUS_PIPE" ] && rm -rf "$MEDIA_STATUS_PIPE" 2> /dev/null
+
+sound_event_handler() {
+}
+
+media_event_handler() {
+}
+
+mkfifo "$SOUND_STATUS_PIPE"
+mkfifo "$MEDIA_STATUS_PIPE"
+
+pactl subscribe | while read -r line; do
+	sound_event_handler "$line"
+done &
+
+playerctl -F status | while read -r line; do
+	media_event_handler "$line"
+done &
+
+wait
+
